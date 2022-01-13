@@ -10,7 +10,7 @@ def nothing(x):
     pass
 
 
-img_raw = cv.imread("./pictures/9.bmp")
+img_raw = cv.imread("./pictures/10.bmp")
 img_bgr = img_raw.copy()
 img_lab = cv.cvtColor(img_bgr, cv.COLOR_BGR2LAB)
 img_rgb = cv.cvtColor(img_bgr, cv.COLOR_BGR2RGB)
@@ -48,8 +48,9 @@ while(1):
     img = cv.Canny(img, 100, 200)
     h, w = np.shape(img)
     print(w, h)
+    # 最小间距设置为h，从而只会找到一个圆
     circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT,
-                              1, h/4, minRadius=int(h/8), maxRadius=int(h/3))
+                              1, h, minRadius=int(h/8), maxRadius=int(h/3))
     circles = np.uint16(np.around(circles))
     for circle in circles[0, :]:
         center = (circle[0], circle[1])
